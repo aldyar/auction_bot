@@ -79,6 +79,19 @@ class ActiveBid(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True )  # Дата последнего обновления
 
 
+# class BidHistory(Base):
+#     __tablename__ = 'bids_history'
+
+#     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+#     tg_id: Mapped[int] = mapped_column(BigInteger)
+#     price:Mapped[int] = mapped_column(Integer)
+#     full_name: Mapped[str] = mapped_column(String(255), nullable=False)
+#     phone: Mapped[str] = mapped_column(String(20), nullable=False)
+#     request_type: Mapped[str] = mapped_column(String(50), nullable=False)
+#     question: Mapped[str] = mapped_column(Text, nullable=False)
+#     category: Mapped[str] = mapped_column(String(100), nullable=False)
+
+    
 async def async_main():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

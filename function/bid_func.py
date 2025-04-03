@@ -1,5 +1,5 @@
 from database.models import async_session
-from database.models import User,Bid,ActiveBid
+from database.models import User,Bid,ActiveBid,BidHistory
 from sqlalchemy import select, update, delete, desc
 from decimal import Decimal
 from datetime import datetime
@@ -66,7 +66,8 @@ async def delete_active_bid(session,bid_id):
 @connection
 async def get_active_bid(session,bid_id):
     bid = await session.scalar(select(ActiveBid).where(ActiveBid.bid_id == bid_id))
-    if bid.tg_id:
-        return bid.tg_id
+    if bid:
+        return bid
     else:
         return False
+    
