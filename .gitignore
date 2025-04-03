@@ -1,0 +1,7 @@
+config.py
+__pycache__/
+.venv
+config.py
+db.sqlite3
+.idea
+update_db2.py
