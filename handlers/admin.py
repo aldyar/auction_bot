@@ -6,6 +6,8 @@ from config import ADMIN
 from function.bid_func import BidFunction as Bid
 import app.keyboards as kb
 from handlers.user_group import timer
+from aiogram import Bot
+
 admin = Router()
 
 
@@ -52,11 +54,11 @@ async def new_bids_handler(callback:CallbackQuery):
         await callback.message.answer(text, parse_mode="Markdown",reply_markup=keyboard)
 
 @admin.callback_query(Admin(),F.data.startswith('AcceptBid_'))
-async def accept_bid_handler(callback:CallbackQuery):
+async def accept_bid_handler(callback:CallbackQuery,bot:Bot):
     bid_id = callback.data.split("_")[1]
-    await callback.answer('OK')
-    await timer(callback.message, bid_id)
-
+    await callback.answer()
+    await timer(callback.message, bid_id,bot)
+    
 
 @admin.callback_query(Admin(), F.data == 'ActiveBids')
 async def active_bids_handler(callback:CallbackQuery):   
