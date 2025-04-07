@@ -11,20 +11,5 @@ def connection(func):
     return inner
 
 
-@connection
-async def set_user(session, tg_id,name):
-    user = await session.scalar(select(User).where(User.tg_id == tg_id))
 
-    if not user:
-        session.add(User(
-            tg_id=tg_id,
-            name = name))
-        await session.commit()
-
-@connection
-async def get_user(session,tg_id):
-    user = await session.scalar(select(User).where(User.tg_id == tg_id))
-    return user
-
-#get_all users
 

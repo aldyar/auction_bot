@@ -10,3 +10,22 @@ async def inline_bids_keyboard(bid_id):
                                                         InlineKeyboardButton(text = '+100 рублей',callback_data=f'100bids_{bid_id}')],
                                                         [InlineKeyboardButton(text = 'Блиц выкуп',callback_data= f'blitz_{bid_id}')]])
     return inline_bids_keyboards
+
+
+async def inline_invalid_bid(bid_id):
+    inline_invalid_bid = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = '❌Заявка не валидная', callback_data= f'InvalidBId_{bid_id}')]]) 
+    return inline_invalid_bid
+
+inline_history_topup = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = '🧾История пополнения',callback_data='history_topup')]])
+
+
+admin_menu = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text = 'Заявки'),
+                                            KeyboardButton(text = 'Статистика')],
+                                            [KeyboardButton(text = 'Управление пользователями')]],resize_keyboard=True)
+
+inline_admin_bid = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = 'Новые заявки',callback_data='NewBids'),
+                                                          InlineKeyboardButton(text = 'Активные заявки',callback_data= 'ActiveBids')]])
+async def inline_accept_bid(bid_id):
+    inline_accept_bid = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = 'Одобрить заявку', callback_data= f'AcceptBid_{bid_id}')],
+                                                          [InlineKeyboardButton(text = 'Удалить заявку', callback_data= f'DeleteBid_{bid_id}')]])
+    return inline_accept_bid

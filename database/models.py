@@ -2,11 +2,10 @@ from sqlalchemy import ForeignKey, String, BigInteger, DateTime, Boolean, Float,
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 from datetime import datetime
+from config import DB_LINK
 
-
-#engine = create_async_engine(url='mysql+aiomysql://root:1234@localhost/auction_db', echo=True)
-#engine = create_async_engine(url='mysql+aiomysql://auction:1234@77.246.247.3/auction', echo=True)    
-engine = create_async_engine("mysql+aiomysql://root:1234@185.139.70.66:3306/auction_db", echo=True)
+#engine = create_async_engine(url='mysql+aiomysql://root:1234@localhost/auction_db', echo=True)  
+engine = create_async_engine(DB_LINK, echo=True)
 
 async_session = async_sessionmaker(engine)
 
@@ -37,7 +36,8 @@ class Bid(Base):
     start_price: Mapped[int] = mapped_column(Integer, nullable=False)
     blitz_price: Mapped[int] = mapped_column(Integer, nullable=True)
     valid: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
-    bot_taken: Mapped[str] = mapped_column(String(20), nullable=True)  
+    bot_taken: Mapped[str] = mapped_column(String(20), nullable=True)
+    sold_price: Mapped[int] = mapped_column(Integer,nullable=True)  
 
 
 class Order(Base):
@@ -66,7 +66,10 @@ class BidInvalid(Base):
     category: Mapped[str] = mapped_column(String(100), nullable=False)
     start_price: Mapped[int] = mapped_column(Integer, nullable=False)
     blitz_price: Mapped[int] = mapped_column(Integer, nullable=True)
+    sold_price: Mapped[int] = mapped_column(Integer,nullable=True)  
+    invalid_reason: Mapped[str] = mapped_column(Text)
 
+    
 class ActiveBid(Base):
     __tablename__ = 'active_bid'
 
