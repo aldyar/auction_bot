@@ -129,3 +129,10 @@ class BidFunction:
         if bid:
             bid.bot_taken = 'not sold'
             await session.commit()
+
+    @connection
+    async def mark_bid_taken(session,bid_id):
+        bid = await session.scalar(select(Bid).where(Bid.id == bid_id))
+        if bid:
+            bid.bot_taken = 'taken'
+            await session.commit()

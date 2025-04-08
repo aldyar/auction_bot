@@ -32,4 +32,4 @@ async def balance_handler(message:Message):
 
 @user.callback_query(F.data == 'history_topup')
 async def user_history_popup(callback:CallbackQuery):
-    await callback.answer(f'Ваш АЙДИ: {callback.from_user.id} я тута!!!')
+    await callback.answer(f'Заглушка')

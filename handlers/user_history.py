@@ -15,7 +15,7 @@ user = Router()
 
 @user.message(F.text == '🧾История заявок')
 async def history_bid_handler(message: Message):
-    bids = await Bid.get_user_bid_history(message.from_user.id)
+    bids = await User.get_user_bid_history(message.from_user.id)
     if not bids:
         return await message.answer('❌ У вас пока нет заявок.')
 

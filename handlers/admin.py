@@ -56,6 +56,7 @@ async def new_bids_handler(callback:CallbackQuery):
 @admin.callback_query(Admin(),F.data.startswith('AcceptBid_'))
 async def accept_bid_handler(callback:CallbackQuery,bot:Bot):
     bid_id = callback.data.split("_")[1]
+    await Bid.mark_bid_taken(bid_id)
     await callback.answer()
     await timer(callback.message, bid_id,bot)
     

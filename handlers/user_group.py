@@ -152,7 +152,7 @@ async def blitz_handler(callback:CallbackQuery):
 
 
 async def timer(message: Message,bid_id,bot:Bot):
-    countdown_time = 300  # 5 минут = 300 секунд
+    countdown_time = 5  # 5 минут = 300 секунд
     bid = await Bid.get_bid_by_id(bid_id)  # вызов твоей асинхронной функции для получения заявки
     keyboard = await kb.inline_bids_keyboard(bid.id)
     bid_info = (
