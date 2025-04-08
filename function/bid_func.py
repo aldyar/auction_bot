@@ -27,6 +27,8 @@ class BidFunction:
 
         bid.tg_id = tg_id
         bid.bot_taken = 'sold'
+        bid.sold_date = datetime.now()
+        bid.sold_price = current
         user.balance -= current
         
         await session.flush()  # Принудительно отправить изменения в БД
@@ -115,13 +117,6 @@ class BidFunction:
     async def get_bid_by_id(session,bid_id):
         bid = await session.scalar(select(Bid).where(Bid.id == bid_id))
         return bid
-    
-    @connection
-    async def bid_taken(session,bid_id):
-        bid = await session.scalar(select(Bid).where(Bid.id == bid_id))
-        if bid:
-            bid.bot_taken = 'taken'
-            await session.commet()
 
     @connection
     async def mark_bid_not_sold(session,bid_id):
@@ -136,3 +131,18 @@ class BidFunction:
         if bid:
             bid.bot_taken = 'taken'
             await session.commit()
+        
+    @connection
+    async def delete_bid(session,bid_id):
+        bid = await session.scalar(select(Bid).where(Bid.id == bid_id))
+        if bid:
+            await session.delete(bid)
+            await session.commit()
+
+    
+    @connection
+    async def get_all_bids(session):
+        bids = await session.scalars(select(Bid))
+        return bids.all()
+    
+    

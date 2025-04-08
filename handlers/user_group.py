@@ -140,7 +140,7 @@ async def auction_100_handler(callback:CallbackQuery):
 
 
 @user.callback_query(F.data.startswith('blitz_'))
-async def blitz_handler(callback:CallbackQuery):
+async def blitz_handler(callback:CallbackQuery,bot:Bot):
     bid_id = callback.data.split('_')[1]
     user_id = callback.from_user.id
     user = await User.get_user(user_id)
@@ -152,7 +152,10 @@ async def blitz_handler(callback:CallbackQuery):
     await Bid.delete_active_bid(bid_id)
     await callback.message.answer(f'✅ Пользователь {user_id} выкупил заявку'
                                   f'По цене: {price}')
-
+    await bot.send_message(user_id,
+                               f'💥*Новая покупка*\n\n'
+                               f'✅ *Вы успешно выкупили заявку под номером: {bid_id}*\n'
+                               f'💰 *По цене: {active_bid.blitz_price}*',parse_mode='Markdown')
 
 
 async def timer(message: Message,bid_id,bot:Bot):
@@ -195,6 +198,11 @@ async def timer(message: Message,bid_id,bot:Bot):
     if active_bid.tg_id is not None:
         await Bid.buy_bid(active_bid.tg_id, bid.id,active_bid.current_price)
         await bot.send_message(GROUP_ID,f'Пользователь {active_bid.tg_id} выкупил , Последняя цена : {active_bid.current_price}')
+        await bot.send_message(active_bid.tg_id,
+                               f'💥*Новая покупка*\n\n'
+                               f'✅ *Вы успешно выкупили заявку под номером: {active_bid.bid_id}*\n'
+                               f'💰 *По цене: {active_bid.current_price}*',parse_mode='Markdown')
+
     elif active_bid.tg_id is None:
         await Bid.mark_bid_not_sold(bid.id)
         await bot.send_message(GROUP_ID,f'Время вышло! Заявка по номером: {active_bid.bid_id} не была выкуплена ')

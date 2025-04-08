@@ -61,6 +61,13 @@ async def accept_bid_handler(callback:CallbackQuery,bot:Bot):
     await timer(callback.message, bid_id,bot)
     
 
+@admin.callback_query(Admin(),F.data.startswith('DeleteBid_'))
+async def delete_new_bid_handler(callback:CallbackQuery):
+    bid_id = callback.data.split("_")[1]
+    await Bid.delete_bid(bid_id)
+    await callback.message.delete()
+    await callback.message.answer(f'✅*Заявка под номером {bid_id} успешно удалена*', parse_mode='Markdown')
+
 @admin.callback_query(Admin(), F.data == 'ActiveBids')
 async def active_bids_handler(callback:CallbackQuery):   
     bids = await Bid.get_all_active_bids()

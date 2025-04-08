@@ -39,7 +39,7 @@ class Bid(Base):
     valid: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     bot_taken: Mapped[str] = mapped_column(String(20), nullable=True)
     sold_price: Mapped[int] = mapped_column(Integer,nullable=True)  
-
+    sold_date: Mapped[datetime] = mapped_column(DateTime,nullable=True)
 
 class Order(Base):
     __tablename__ = 'orders'

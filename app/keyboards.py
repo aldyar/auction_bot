@@ -38,3 +38,7 @@ async def admin_block_unlock_user(user_id):
                                                                      InlineKeyboardButton(text = 'Заблокировать', callback_data= f'block_{user_id}')]])
 
     return admin_block_unlock_user
+
+inline_admin_stat = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = 'за 24 часа',callback_data='day'),
+                                                           InlineKeyboardButton(text='За неделю' ,callback_data='week')],
+                                                           [InlineKeyboardButton(text = 'За месяц',callback_data='month')]])

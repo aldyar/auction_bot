@@ -1,6 +1,6 @@
 from database.models import async_session
 from database.models import User,Bid,ActiveBid,BidInvalid
-from sqlalchemy import select, update, delete, desc
+from sqlalchemy import select, update, delete, desc,distinct
 from decimal import Decimal
 from datetime import datetime
 
@@ -43,3 +43,5 @@ class UserFunction:
             return user
         else:
             return None
+        
+    
