@@ -117,6 +117,8 @@ async def auction_50_handler(callback:CallbackQuery):
     price = active_bid.blitz_price
     if user.balance < price + 50:
         return await callback.answer('У вас не хватает средтсв',show_alert=True)
+    if active_bid.tg_id == user_id:
+        return await callback.answer('Вы не можете сделать ставку так как последняя ставка ваша',show_alert=True)
     await Bid.update_active_bid(bid_id,user_id,current)
     await callback.answer()
 
@@ -131,6 +133,8 @@ async def auction_100_handler(callback:CallbackQuery):
     price = active_bid.blitz_price
     if user.balance < price + 100:
         return await callback.answer('У вас не хватает средтсв',show_alert=True)
+    if active_bid.tg_id == user_id:
+        return await callback.answer('Вы не можете сделать ставку так как последняя ставка ваша',show_alert=True)
     await Bid.update_active_bid(bid_id,user_id,current)
     await callback.answer()
 
@@ -152,7 +156,7 @@ async def blitz_handler(callback:CallbackQuery):
 
 
 async def timer(message: Message,bid_id,bot:Bot):
-    countdown_time = 5  # 5 минут = 300 секунд
+    countdown_time = 20  # 5 минут = 300 секунд
     bid = await Bid.get_bid_by_id(bid_id)  # вызов твоей асинхронной функции для получения заявки
     keyboard = await kb.inline_bids_keyboard(bid.id)
     bid_info = (
