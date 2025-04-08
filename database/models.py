@@ -20,7 +20,8 @@ class User(Base):
     tg_id: Mapped[int] = mapped_column(BigInteger,primary_key=True)
     balance: Mapped[int] = mapped_column(Float, default=0)
     name : Mapped[str] = mapped_column(String(32),nullable=True)
-
+    register_date: Mapped[datetime] = mapped_column(DateTime,default=datetime.now())
+    is_banned: Mapped[bool] = mapped_column(Boolean, default=False)
 
 class Bid(Base):
     __tablename__ = 'bids'

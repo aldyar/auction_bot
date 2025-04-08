@@ -30,3 +30,11 @@ async def inline_accept_bid(bid_id):
     inline_accept_bid = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = 'Одобрить заявку', callback_data= f'AcceptBid_{bid_id}')],
                                                           [InlineKeyboardButton(text = 'Удалить заявку', callback_data= f'DeleteBid_{bid_id}')]])
     return inline_accept_bid
+
+admin_search_user = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = '🔍Поиск пользователя',callback_data = 'SearchUser')]])
+
+async def admin_block_unlock_user(user_id):
+    admin_block_unlock_user = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = 'Разблокировать',callback_data=f'unlock_{user_id}'),
+                                                                     InlineKeyboardButton(text = 'Заблокировать', callback_data= f'block_{user_id}')]])
+
+    return admin_block_unlock_user
