@@ -6,3 +6,6 @@ class InvalidBid(StatesGroup):
 
 class Admin(StatesGroup):
     wait_username = State()
+
+class User(StatesGroup):
+    wait_add_sum = State()

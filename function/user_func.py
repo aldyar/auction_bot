@@ -29,7 +29,7 @@ class UserFunction:
     @connection
     async def get_user_bid_history(session,tg_id):
         bids = await session.scalars(select(Bid).where(Bid.tg_id == tg_id,Bid.valid == 1).order_by(desc(Bid.id)))
-        return bids
+        return bids.all()
     
     @connection
     async def get_all_users(session):

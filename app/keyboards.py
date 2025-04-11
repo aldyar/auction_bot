@@ -42,3 +42,9 @@ async def admin_block_unlock_user(user_id):
 inline_admin_stat = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text = 'за 24 часа',callback_data='day'),
                                                            InlineKeyboardButton(text='За неделю' ,callback_data='week')],
                                                            [InlineKeyboardButton(text = 'За месяц',callback_data='month')]])
+
+inline_add_funds = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text ='100 ₽',callback_data='topup_100'),
+                                                          InlineKeyboardButton(text ='500 ₽',callback_data='topup_500')],
+                                                         [InlineKeyboardButton(text = '1000 ₽',callback_data='topup_1000'),
+                                                          InlineKeyboardButton(text = '2000 ₽',callback_data='topup_2000')],
+                                                         [InlineKeyboardButton(text = 'Указать свою сумму',callback_data='MySum')]])
