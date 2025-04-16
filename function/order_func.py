@@ -32,3 +32,9 @@ class OrderFunction:
         if user:
             user.balance += amount
             await session.commit()
+
+
+    @connection
+    async def get_orders_by_userid(session,tg_id):
+        orders = await session.scalars(select(Order).where(Order.tg_id == tg_id).order_by(desc(Order.id)))
+        return orders.all()

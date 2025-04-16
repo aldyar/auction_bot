@@ -75,7 +75,7 @@ async def unlock_handler(callback:CallbackQuery):
 
 
 @admin.callback_query(F.data.startswith ('block'))
-async def block_handler(callback:CallbackQuery):
+async def block_handler(callback:CallbackQuery,bot:Bot):
     user_id = callback.data.split("_")[1]
     user = await User.get_user(user_id)
     if user.is_banned == True:
@@ -84,3 +84,5 @@ async def block_handler(callback:CallbackQuery):
         await AdminFunction.set_ban_user(user_id,1)
         await callback.message.delete()
         await callback.message.answer(f'✅*Пользователь* {user_id} * был заблокирован*',parse_mode='Markdown')
+        await bot.send_message(user_id,
+                               '🚫 *Вас заблокировал администратор.*',parse_mode='Markdown')

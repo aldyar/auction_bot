@@ -150,8 +150,8 @@ async def blitz_handler(callback:CallbackQuery,bot:Bot):
         return await callback.answer('У вас не хватает средтсв',show_alert=True)
     await Bid.buy_bid(user_id,bid_id,price)
     await Bid.delete_active_bid(bid_id)
-    await callback.message.answer(f'✅ Пользователь {user_id} выкупил заявку'
-                                  f'По цене: {price}')
+    await callback.message.answer(f'✅ Пользователь {user_id} выкупил заявку\n'
+                                  f'💰По цене: {price}')
     await bot.send_message(user_id,
                                f'💥*Новая покупка*\n\n'
                                f'✅ *Вы успешно выкупили заявку под номером: {bid_id}*\n'
@@ -197,7 +197,7 @@ async def timer(message: Message,bid_id,bot:Bot):
     await Bid.delete_active_bid(bid.id)
     if active_bid.tg_id is not None:
         await Bid.buy_bid(active_bid.tg_id, bid.id,active_bid.current_price)
-        await bot.send_message(GROUP_ID,f'Пользователь {active_bid.tg_id} выкупил , Последняя цена : {active_bid.current_price}')
+        await bot.send_message(GROUP_ID,f'✅ Пользователь {active_bid.tg_id} выкупил , Последняя цена : {active_bid.current_price}')
         await bot.send_message(active_bid.tg_id,
                                f'💥*Новая покупка*\n\n'
                                f'✅ *Вы успешно выкупили заявку под номером: {active_bid.bid_id}*\n'
@@ -205,7 +205,7 @@ async def timer(message: Message,bid_id,bot:Bot):
 
     elif active_bid.tg_id is None:
         await Bid.mark_bid_not_sold(bid.id)
-        await bot.send_message(GROUP_ID,f'Время вышло! Заявка по номером: {active_bid.bid_id} не была выкуплена ')
+        await bot.send_message(GROUP_ID,f'Время вышло! Заявка под номером: {active_bid.bid_id} не была выкуплена ')
 
 
 @user.callback_query(F.data.startswith ('info_'))
@@ -221,5 +221,5 @@ async def info_bid_handler(callback:CallbackQuery):
     price = active_bid.current_price
     await callback.answer(f"Осталось {minutes}:{sec:02d}\n"
                           f"Цена: {price}\n"
-                          f"Покупатель:{active_bid.tg_id if active_bid.tg_id else 'Ставок по лоту не было'}")
+                          f"Покупатель:{active_bid.tg_id if active_bid.tg_id else 'Ставок по лоту не было'}",show_alert=True)
 

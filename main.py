@@ -10,11 +10,16 @@ from handlers.admin_statistics import admin as admin_stat
 from handlers.user_payment import user as user_payment
 
 from database.models import async_main
+from app.middleware import BanCheckMiddleware
+
+
 
 
 async def main():
     bot = Bot(token=TOKEN)
     dp = Dispatcher()
+    dp.message.middleware(BanCheckMiddleware())
+
     dp.include_routers(admin, admin_bid, admin_stat,
                        user, user_group, user_history, user_payment)
     dp.startup.register(on_startup)

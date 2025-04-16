@@ -46,7 +46,7 @@ async def new_bids_handler(callback:CallbackQuery):
             f"*📂 Категория:* {bid.category}\n"
             f"*❓ Вопрос:* {bid.question}\n"
             f"*💼 Тип запроса:* {bid.request_type}\n"
-            f"*💰 Стартовая цена:* {bid.start_price}₸\n"
+            f"*💰 Стартовая цена:* {bid.start_price}\n"
             f"*⚡ Блиц-цена:* {bid.blitz_price if bid.blitz_price else '—'}\n\n"
             "Выберите действие для этой заявки ⤵️"
         )
@@ -83,8 +83,8 @@ async def active_bids_handler(callback:CallbackQuery):
             f"*📂 Категория:* {bid.category}\n"
             f"*❓ Вопрос:* {bid.question}\n"
             f"*💼 Тип запроса:* {bid.request_type}\n"
-            f"*💰 Стартовая цена:* {bid.start_price}₸\n"
+            f"*💰 Стартовая цена:* {bid.start_price}\n"
             f"*⚡ Блиц-цена:* {bid.blitz_price if bid.blitz_price else '—'}\n\n"
-            "Выберите действие для этой заявки ⤵️"
+            #"Выберите действие для этой заявки ⤵️"
         )
         await callback.message.answer(text, parse_mode="Markdown")

@@ -83,6 +83,7 @@ class BidFunction:
             print("✅ Заявка найдена, создаём BidInvalid")
             bid.valid = False
             invalid_bid = BidInvalid(
+                    id = bid.id,
                     tg_id=bid.tg_id,
                     request_date=bid.request_date,
                     full_name=bid.full_name,

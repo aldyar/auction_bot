@@ -33,17 +33,17 @@ async def add_funds_handler(message:Message):
 @user.callback_query(F.data.startswith ('topup_'))
 async def send_invoice(callback: CallbackQuery,bot:Bot):
     user_amount = int(callback.data.split('_')[-1])
-    prices = [LabeledPrice(label="Тестовый товар", amount=user_amount*100)]  # 10000 копеек = 100.00 руб
+    prices = [LabeledPrice(label="Пополнение баланса", amount=user_amount*100)]  # 10000 копеек = 100.00 руб
     await callback.message.delete()
     await bot.send_invoice(
         chat_id=callback.message.chat.id,
-        title="Тестовая покупка",
-        description="Это тестовый платёж через ЮKassa в Telegram",
-        payload="test_payload",
+        title="Пополнение баланса",
+        description="Пополнение баланса через ЮKassa в Telegram",
+        payload="topup",
         provider_token=PROVIDER_TOKEN,
         currency="RUB",
         prices=prices,
-        start_parameter="test-payment",
+        start_parameter="real-topup",
     )
 
 
